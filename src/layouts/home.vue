@@ -1,6 +1,13 @@
+<script setup lang="ts">
+const router = useRouter()
+function goHome() {
+  router.push(`/`)
+}
+</script>
+
 <template>
   <nav class="nav">
-    <div class="logo">
+    <div class="logo" @click="goHome">
       logo
     </div>
   </nav>

@@ -1,18 +1,19 @@
 <script lang="ts">
 import { throttle } from 'lodash-es'
 
-const htmlEl = window.document.querySelector('html') as HTMLHtmlElement
 const FONT_SIZE_TO_WIDTH = 16 / 375
 
 const updateRootFontSize = throttle(() => {
+  const htmlEl = document.querySelector('html') as HTMLHtmlElement
   const width = window.innerWidth
   const fontSize = width * FONT_SIZE_TO_WIDTH
   htmlEl.style.fontSize = `${fontSize}px`
 }, 100)
 
-window.addEventListener('resize', updateRootFontSize)
-
-updateRootFontSize()
+if (!import.meta.env.SSR) {
+  window.addEventListener('resize', updateRootFontSize)
+  updateRootFontSize()
+}
 </script>
 
 <script setup lang="ts">

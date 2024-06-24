@@ -1,7 +1,7 @@
 <script lang="ts">
 import { throttle } from 'lodash-es'
 
-const htmlEl = document.querySelector('html') as HTMLHtmlElement
+const htmlEl = window.document.querySelector('html') as HTMLHtmlElement
 const FONT_SIZE_TO_WIDTH = 16 / 375
 
 const updateRootFontSize = throttle(() => {

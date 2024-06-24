@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { UseDraggable } from '@vueuse/components'
 import { getGameById, getRandomGameList } from '~/data/few-iframe-game'
 
 const route = useRoute('/game/[id]')
@@ -7,41 +8,38 @@ const randomGameList = computed(() => getRandomGameList(route.params.id))
 
 const game = computed(() => getGameById(route.params.id))
 
-const fullscreen = ref(false)
-
-function start() {
-  fullscreen.value = true
-}
+const { isFullscreen, enter } = useFullscreen()
 </script>
 
 <template>
-  <div class="game-start" @click="start">
-    <div class="game-start__bg" :style="{ backgroundImage: `url(${game.avatar})` }" />
-    <button class="game-start__btn">
-      Run game
-    </button>
-  </div>
-  <div class="game-info">
-    <div class="game-info__title">
-      {{ game.title }}
+  <template v-if="game">
+    <div class="game-start" @click="enter">
+      <div class="game-start__bg" :style="{ backgroundImage: `url(${game.avatar})` }" />
+      <button class="game-start__btn">
+        Run game
+      </button>
     </div>
-    <div class="game-info__desc">
-      {{ game.description }}
+    <div class="game-info">
+      <div class="game-info__title">
+        {{ game.title }}
+      </div>
+      <div class="game-info__desc">
+        {{ game.description }}
+      </div>
     </div>
-  </div>
-  <div class="list-title">
-    More
-  </div>
-  <GameList class="game-list" :list="randomGameList" />
-  <div v-if="fullscreen" class="game-window">
-    <div class="float-widgets" />
-    <iframe
-      v-if="game?.iframeSrc" :src="game.iframeSrc" frameborder="0" :style="{
-        width: `${game.width}px`,
-        height: `${game.height}px`,
-      }"
-    />
-  </div>
+    <div class="list-title">
+      More
+    </div>
+    <GameList class="game-list" :list="randomGameList" />
+    <div v-if="isFullscreen" class="game-window">
+      <UseDraggable :initial-value="{ x: 0, y: 40 }" storage-key="float-widgets-draggable" storage-type="session" style="position: absolute">
+        <div class="float-widgets">
+          Back
+        </div>
+      </UseDraggable>
+      <iframe v-if="game?.iframeSrc" :src="game.iframeSrc" frameborder="0" />
+    </div>
+  </template>
 </template>
 
 <route lang="yaml">
@@ -108,5 +106,29 @@ meta:
 
 .game-list {
   margin-top: 10px;
+}
+
+.game-window {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #000;
+  z-index: 1;
+  > iframe {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.float-widgets {
+  width: 40px;
+  background-color: #fff;
+  line-height: 40px;
+  border-radius: 20px;
+  text-align: center;
+
+  opacity: 0.3;
 }
 </style>

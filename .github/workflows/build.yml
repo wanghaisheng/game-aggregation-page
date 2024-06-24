@@ -27,3 +27,11 @@ jobs:
         run: |
           pnpm install
           pnpm build
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # location of the coverage artifacts
+          path: ./dist
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2

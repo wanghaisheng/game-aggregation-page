@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import type { GameInfo } from '~/data/few-iframe-game'
+
 defineProps<{
-  list: GameList[]
+  list: GameInfo[]
 }>()
 
 const router = useRouter()

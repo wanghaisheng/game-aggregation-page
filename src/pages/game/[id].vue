@@ -9,6 +9,13 @@ const randomGameList = computed(() => getRandomGameList(route.params.id))
 const game = computed(() => getGameById(route.params.id))
 
 const { isFullscreen, enter } = useFullscreen()
+
+watch(
+  () => route.params.id,
+  () => {
+    window.scrollTo(0, 0)
+  },
+)
 </script>
 
 <template>

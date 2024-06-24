@@ -1,3 +1,20 @@
+<script lang="ts">
+import { throttle } from 'lodash-es'
+
+const htmlEl = document.querySelector('html') as HTMLHtmlElement
+const FONT_SIZE_TO_WIDTH = 16 / 375
+
+const updateRootFontSize = throttle(() => {
+  const width = window.innerWidth
+  const fontSize = width * FONT_SIZE_TO_WIDTH
+  htmlEl.style.fontSize = `${fontSize}px`
+}, 100)
+
+window.addEventListener('resize', updateRootFontSize)
+
+updateRootFontSize()
+</script>
+
 <script setup lang="ts">
 // https://github.com/vueuse/head
 // you can use this to manipulate the document head in any components,

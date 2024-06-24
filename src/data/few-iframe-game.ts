@@ -53,7 +53,7 @@ export const list = [
     id: '6',
     iframeSrc: 'https://html-classic.itch.zone/html/10577608/Devilish K 1.4/index.html',
     sourceUrl: 'https://veracity.itch.io/devilish-kisses',
-    avatar: 'https://img.itch.zone/aW1nLzEzOTMwODA1LnBuZw==/315x250%23c/LhQNLE.png',
+    avatar: 'https://img.itch.zone/aW1nLzExMzk1NDkwLnBuZw==/315x250%23c/GYXucE.png',
     title: 'Devilish Kisses',
     description: 'Help Angel and Devil enjoy their romantic dinner!',
     width: 896,
@@ -73,7 +73,7 @@ export const list = [
     id: '8',
     iframeSrc: 'https://html-classic.itch.zone/html/5027959/bin/index.html',
     sourceUrl: 'https://watabou.itch.io/antlers',
-    avatar: 'https://img.itch.zone/aW1nLzEzOTMwODA1LnBuZw==/315x250%23c/LhQNLE.png',
+    avatar: 'https://img.itch.zone/aW1nLzc3Mzg1MzAucG5n/315x250%23c/lbj%2FCL.png',
     title: 'Antlers',
     description: 'Antlers generator',
     width: 1280,
@@ -83,7 +83,7 @@ export const list = [
     id: '9',
     iframeSrc: 'https://html-classic.itch.zone/html/3140245/web/dist/index.html',
     sourceUrl: 'https://pawprints.itch.io/skwish',
-    avatar: 'https://img.itch.zone/aW1nLzEzOTMwODA1LnBuZw==/315x250%23c/LhQNLE.png',
+    avatar: 'https://img.itch.zone/aW1nLzQ4NjE3OTEucG5n/315x250%23c/gOweL7.png',
     title: 'Skwish',
     description: 'Get in the blobs to solve the puzzle!',
     width: 640,
@@ -92,3 +92,17 @@ export const list = [
 ]
 
 export const getGameById = (id: string) => list.find(i => i.id === id)
+
+export type GameInfo = (typeof list)[0]
+
+export function getRandomGameList(id: string) {
+  const newList: GameInfo[] = list.filter(i => i.id !== id)
+  const len = newList.length
+  for (let i = 0; i < len - 1; i++) {
+    const swapI = i + Math.floor(Math.random() * (len - i))
+    const t = newList[swapI]
+    newList[swapI] = newList[i]
+    newList[i] = t
+  }
+  return newList.slice(0, 10)
+}

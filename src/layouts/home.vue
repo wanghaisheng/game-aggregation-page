@@ -1,12 +1,19 @@
 <template>
-  <main
-    px-4 py-10
-    text="center gray-700 dark:gray-200"
-  >
-    <RouterView />
-    <TheFooter />
-    <div mx-auto mt-5 text-center text-sm opacity-50>
-      [Home Layout]
+  <nav class="nav">
+    <div class="logo">
+      logo
     </div>
-  </main>
+  </nav>
+  <RouterView />
 </template>
+
+<style lang="scss">
+.nav {
+  position: sticky;
+  top: 0;
+  height: 50px;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  z-index: 1;
+}
+</style>

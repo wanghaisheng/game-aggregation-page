@@ -39,12 +39,15 @@ watch(
     </div>
     <GameList class="game-list" :list="randomGameList" />
     <div v-if="isFullscreen" class="game-window">
-      <UseDraggable :initial-value="{ x: 0, y: 40 }" storage-key="float-widgets-draggable" storage-type="session" style="position: absolute">
+      <UseDraggable
+        :initial-value="{ x: 0, y: 40 }" storage-key="float-widgets-draggable" storage-type="session"
+        style="position: absolute"
+      >
         <div class="float-widgets">
           Back
         </div>
       </UseDraggable>
-      <iframe v-if="game?.iframeSrc" :src="game.iframeSrc" frameborder="0" />
+      <iframe v-if="game?.iframeSrc" :src="game.iframeSrc" frameborder="0" rel="noreferrer" />
     </div>
   </template>
 </template>
